@@ -1,0 +1,27 @@
+server:
+  port: 7001
+spring:
+  application:
+    name: cloud-eruka-server
+eureka:
+  instance:
+    #eureka服务端的实例名称
+    hostname: localhost
+    #实例ID 方便快速定位是哪台服务器
+    #instance-id: ${spring.application.name}
+    #访问路径可以显示IP地址
+    prefer-ip-address: true
+  server:
+    #关闭自我保护机制，保证不可用服务被及时踢除
+    enable-self-preservation: false
+    eviction-interval-timer-in-ms: 2000
+  client:
+    #true向注册中心注册当前服务 / false不向注册中心注册当前服务
+    register-with-eureka: false
+    #true扫描注册表 / false不扫描注册（表示自己端就是注册中心，表我的职责就是维护服务实例，并不需要去检索服务）
+    fetch-registry: false
+    service-url:
+      #集群指向其它eureka
+      defaultZone: http://localhost:7002/eureka/
+      #单机
+      #defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
